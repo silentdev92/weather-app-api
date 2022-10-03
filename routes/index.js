@@ -15,7 +15,13 @@ router.get('/location', async (req, res) => {
         },
       }
     )
-    res.status(status).send(data)
+
+    const resultData = data.map((location) => {
+      const id = Math.round(Date.now() * Math.random())
+      return { ...location, id }
+    })
+
+    res.status(status).send(resultData)
   } catch (err) {
     const { status, data } = err.response
     res.status(status).send(data)
